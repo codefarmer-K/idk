@@ -27,4 +27,5 @@ urlpatterns = [
     path('video/', views.video, name='video'),  # 添加视频播放页面
     path('', views.about_us, name='home'),  # 这里是新增的行，将空路径重定向到 'about' 页面
     path('tabbed/', views.tabbed_page, name='tabbed_page'),
+    path('main/', views.main, name='main'),
 ]

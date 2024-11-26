@@ -22,3 +22,6 @@ def video(request):
     return render(request, 'xenofobia/videos.html')
 def tabbed_page(request):
     return render(request, 'xenofobia/tabbed_page.html')
+
+def main(request):
+    return render(request, 'xenofobia/main.html')
