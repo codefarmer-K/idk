@@ -1,6 +1,24 @@
+<<<<<<< HEAD
 __pycache__/ 
 *.py[cod] 
 *.sqlite3 
 venv/ 
 .vscode/ 
 .idea/ 
+=======
+# Ignorar entorno virtual
+vintro/
+
+# Ignorar archivos de base de datos SQLite
+*.sqlite3
+
+# Ignorar archivos de compilación
+*.pyc
+*.pyo
+__pycache__
+
+# Ignorar archivos de configuración de IDEs comunes
+.vscode/
+.idea/
+"__pycache__/" 
+>>>>>>> friend-master

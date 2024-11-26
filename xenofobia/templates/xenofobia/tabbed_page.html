@@ -1,0 +1,55 @@
+<!-- tabbed_page.html -->
+<!-- tabbed_page.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选项卡式页面</title>
+    <link rel="stylesheet" href="{% static 'css/your_styles.css' %}">
+    <script src="{% static 'js/tabs.js' %}"></script>
+</head>
+<body>
+
+<div class="tab-container">
+    <!-- 选项卡按钮 -->
+    <div class="tabs">
+        <a href="{% url 'about_us' %}" class="tab-button">关于我们</a>
+        <a href="{% url 'register' %}" class="tab-button">用户注册</a>
+        <a href="{% url 'video' %}" class="tab-button">宣传视频</a>
+ 
+    <!-- 选项卡内容 -->
+    <div class="tab-content">
+        <!-- 关于我们内容 -->
+        <div id="about" class="tab-panel">
+            <h2>关于我们团队</h2>
+            <p>这是一个关于我们团队以及我们为何选择排外主题的说明。</p>
+        </div>
+
+        <!-- 用户注册内容 -->
+        <div id="register" class="tab-panel">
+            <h2>用户注册</h2>
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <!-- 表单字段示例 -->
+                <label for="username">用户名:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">密码:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">注册</button>
+            </form>
+        </div>
+
+        <!-- 视频内容 -->
+        <div id="video" class="tab-panel">
+            <h2>观看宣传视频</h2>
+            <video controls>
+                <source src="{% static 'videos/anti-xenophobia.mp4' %}" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+        </div>
+</div>
+
+</body>
+</html>
