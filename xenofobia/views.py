@@ -1,6 +1,22 @@
 # xenofobia/views.py
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
+from .forms import UserMessageForm# 替换为你的表单类路径
+
+def main_view(request):
+    if request.method == 'POST':
+        form = UserMessageForm(request.POST)
+        if form.is_valid():
+            form.save()  # 保存表单数据到数据库
+            return redirect('thank_you_view')  # 表单提交后跳转到感谢页面
+    else:
+        form = UserMessageForm()
+
+    return render(request, 'xenofobia/main.html', {'form': form})
+
+# 感谢页面视图
+def thank_you_view(request):
+    return render(request, 'xenofobia/thank_you.html')
 
 # 用户注册视图
 def register(request):
@@ -23,5 +39,3 @@ def video(request):
 def tabbed_page(request):
     return render(request, 'xenofobia/tabbed_page.html')
 
-def main(request):
-    return render(request, 'xenofobia/main.html')
