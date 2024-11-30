@@ -16,6 +16,15 @@ body {font-size:16px;}
 <body>
     {%load static%}
 
+
+<!-- 顶部导航 -->
+<div style="text-align: right; margin: 10px;">
+    <a href="{% url 'admin:index' %}" style="color: purple; font-weight: bold; text-decoration: none; margin-right: 15px;">
+      LOGIN
+  </a>
+</div>
+
+
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-cyan w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
@@ -75,11 +84,8 @@ body {font-size:16px;}
   <div class="w3-container" id="services" style="margin-top:75px">
     <h1 class="w3-xxxlarge w3-text-red"><b>Who are we?</b></h1>
     <hr style="width:50px;border:5px solid rgb(255, 0, 200)" class="w3-round">
-    <p>We are a interior design service that focus on what's best for your home and what's best for you!</p>
-    <p>Some text about our services - what we do and what we offer. We are lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
-    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    </p>
+    <p>rellenar</p>
+    <p>rellenar</p>
   </div>
   
   <!-- Designers -->
@@ -87,11 +93,9 @@ body {font-size:16px;}
     <h1 class="w3-xxxlarge w3-text-red"><b>Team Members </b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <p>The best team in the world.</p>
-    <p>We are lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
-    incididunt ut labore et quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    <p>rellenar
     </p>
-    <p><b>Our designers are thoughtfully chosen</b>:</p>
+    <p><b>xd</b>:</p>
   </div>
 
   <!-- The Team -->
@@ -130,26 +134,56 @@ body {font-size:16px;}
 
   
   <!-- Contact -->
-  <div class="w3-container" id="contact" style="margin-top:75px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Register</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
-    <p>Do you want us to style your home? Fill out the form and fill me in with the details :) We love meeting new people!</p>
-    <form action="/action_page.php" target="_blank">
+  <!-- Contact -->
+<div class="w3-container" id="contact" style="margin-top:75px">
+  <h1 class="w3-xxxlarge w3-text-red"><b>Contactar</b></h1>
+  <hr style="width:50px;border:5px solid red" class="w3-round">
+  <p>Compartan sucesos</p>
+  <form method="POST">
+      {% csrf_token %}  <!-- CSRF token，确保防止跨站请求伪造攻击 -->
       <div class="w3-section">
-        <label>Name</label>
-        <input class="w3-input w3-border" type="text" name="Name" required>
+          <label for="id_name">Name</label>
+          {{ form.name }}  <!-- 渲染 name 字段 -->
+          {% if form.name.errors %}
+              <div class="errors">
+                  {% for error in form.name.errors %}
+                      <p>{{ error }}</p>
+                  {% endfor %}
+              </div>
+          {% endif %}
       </div>
+
       <div class="w3-section">
-        <label>Email</label>
-        <input class="w3-input w3-border" type="text" name="Email" required>
+          <label for="id_email">Email</label>
+          {{ form.email }}  <!-- 渲染 email 字段 -->
+          {% if form.email.errors %}
+              <div class="errors">
+                  {% for error in form.email.errors %}
+                      <p>{{ error }}</p>
+                  {% endfor %}
+              </div>
+          {% endif %}
       </div>
+
       <div class="w3-section">
-        <label>Message</label>
-        <input class="w3-input w3-border" type="text" name="Message" required>
+          <label for="id_message">Message</label>
+            {{ form.message }}  <!-- 渲染 message 字段 -->
+            {% if form.message.errors %}
+              <div class="errors">
+                  {% for error in form.message.errors %}
+                      <p>{{ error }}</p>
+                  {% endfor %}
+              </div>
+          {% endif %}
       </div>
+
       <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send Message</button>
-    </form>  
-  </div>
+  </form>
+</div>
+
+
+
+  
 
 <!-- End page content -->
 </div>
@@ -180,3 +214,4 @@ function onClick(element) {
 
 </body>
 </html>
+
