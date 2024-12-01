@@ -18,9 +18,16 @@ body {font-size:16px;}
 
 
 <!-- 顶部导航 -->
+{% if user_name %}
+        <div style="text-align: right;">
+            <span>Bienvenido, {{ user_name }}!</span>
+            <a href="{% url 'salir' %}">Salir sesión</a>
+        </div>
+    {% endif %}
+
 <div style="text-align: right; margin: 10px;">
     <a href="{% url 'admin:index' %}" style="color: purple; font-weight: bold; text-decoration: none; margin-right: 15px;">
-      LOGIN
+      administrador
   </a>
 </div>
 
@@ -214,4 +221,3 @@ function onClick(element) {
 
 </body>
 </html>
-
