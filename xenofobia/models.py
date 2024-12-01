@@ -9,3 +9,11 @@ class UserMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.email}"
+
+class CustomUser(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)  # 明文加密将在视图中处理
+
+    def __str__(self):
+        return self.name
