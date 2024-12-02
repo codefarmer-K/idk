@@ -7,6 +7,12 @@ from django.contrib import messages
 from .models import CustomUser
 from django.contrib.auth.hashers import make_password,check_password
 from .models import Video
+from django.contrib.auth import logout
+
+def custom_admin_logout(request):
+    """自定义 admin logout 逻辑"""
+    
+    return redirect('main')  # 替换 'main' 为你的客户 main 页面名称
 
 def main_view(request):
     user_name = request.session.get('user_name', None)
