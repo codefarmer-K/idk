@@ -4,9 +4,11 @@ from django.urls import path
 from xenofobia import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 urlpatterns = [
+    path('admin/logout/', views.custom_admin_logout, name='custom_admin_logout'),
     path('admin/', admin.site.urls),  
     path('main/', views.main_view, name='main'),
     path('thank-you/', views.thank_you_view, name='thank_you_view'),
