@@ -20,6 +20,22 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        .form-field {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            color: #555;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
         button {
             background-color: #2196F3;
             color: white;
@@ -50,7 +66,10 @@
             <h1 class="w3-center w3-text-blue">Contar</h1>
             <form method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <div class="form-field">
+                    <label for="id_message">Message:</label>
+                    {{ form.message }}
+                </div>
                 <div style="text-align: center; margin-top: 20px;">
                     <button type="submit" class="w3-button w3-blue">Enviar</button>
                 </div>
