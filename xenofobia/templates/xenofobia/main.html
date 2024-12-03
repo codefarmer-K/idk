@@ -95,21 +95,68 @@
             </div>
         </div>
 
-        <!-- 视频部分 -->
-        <div class="videos">
-            {% for video in videos %}
-                <div class="video-item">
-                    <h3>{{ video.title }}</h3>
-                    <video controls width="600">
-                        <source src="{{ video.video_file.url }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <p>{{ video.description }}</p>
-                </div>
-            {% empty %}
-                <p>No videos available.</p>
-            {% endfor %}
+
+
+        {% for video in videos %}
+        <div class="video">
+            <h3>{{ video.title }}</h3>
+            <p>{{ video.description }}</p>
+            <video controls class="video-player">
+                <source src="{{ video.video_file.url }}" type="video/mp4">
+            </video>
+            
+            <button class="like-btn" data-video-id="{{ video.id }}">
+                {% if video.liked_by_user %}
+                👍 已点赞
+                {% else %}
+                👍 点赞
+                {% endif %}
+            </button>
+            <span>总点赞数: {{ video.likes_count }}</span>
         </div>
+        {% endfor %}
+        
+        <style>
+            .video-player {
+                max-width: 600px; /* 限制视频最大宽度 */
+                max-height: 400px; /* 限制视频最大高度 */
+                width: 100%; /* 视频宽度自适应父容器 */
+                height: auto; /* 高度根据宽度比例调整 */
+            }
+            .video {
+                margin-bottom: 20px; /* 每个视频区域的下间距 */
+            }
+        </style>
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.like-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const videoId = button.dataset.videoId;
+                    const action = button.textContent.includes('已点赞') ? 'unlike' : 'like';
+        
+                    fetch('/main/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({ video_id: videoId, action: action })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.likes_count !== undefined) {
+                            button.textContent = action === 'like' ? '👍 已点赞' : '👍 点赞';
+                            button.nextElementSibling.textContent = `总点赞数: ${data.likes_count}`;
+                        }
+                    });
+                });
+            });
+        });
+        </script>
+        
+
         <!-- About Us -->
   <div class="w3-container" id="services" style="margin-top:75px">
     <h1 class="w3-xxxlarge w3-text-red"><b>Who are we?</b></h1>
@@ -163,53 +210,12 @@
   </div>
 
   
+  <a href="{% url 'contar' %}" class="btn btn-primary">Contar</a>
 
-        <!-- Contact Form -->
-        <div class="w3-container" id="contact" style="margin-top:75px">
-            <h1 class="w3-xxxlarge w3-text-red"><b>Contactar</b></h1>
-            <hr style="width:50px;border:5px solid red" class="w3-round">
-            <form method="POST" action="">
-                {% csrf_token %}
-                <div class="w3-section">
-                    <label for="id_name">Nombre</label>
-                    {{ form.name }}
-                    {% if form.name.errors %}
-                        <div class="errors">
-                            {% for error in form.name.errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="w3-section">
-                    <label for="id_email">Email</label>
-                    {{ form.email }}
-                    {% if form.email.errors %}
-                        <div class="errors">
-                            {% for error in form.email.errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="w3-section">
-                    <label for="id_message">Mensaje</label>
-                    {{ form.message }}
-                    {% if form.message.errors %}
-                        <div class="errors">
-                            {% for error in form.message.errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <button type="submit" class="w3-button w3-red">Enviar mensaje</button>
-            </form>
-        </div>
 
         <!-- Footer -->
         <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px">
-            <p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p>
+            <p class="w3-right"> <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p>
         </div>
     </div>
 
