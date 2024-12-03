@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contar</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <style>
+        body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+        body {font-size:16px; margin: 0; padding: 0;}
+        .w3-container {
+            margin-top: 50px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0b7dda;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="w3-container">
+        <div class="form-container w3-animate-opacity">
+            <h1 class="w3-center w3-text-blue">Contar</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div style="text-align: center; margin-top: 20px;">
+                    <button type="submit" class="w3-button w3-blue">Enviar</button>
+                </div>
+            </form>
+            <a href="{% url 'main' %}" class="back-link">Volver a Main</a>
+        </div>
+    </div>
+</body>
+</html>
