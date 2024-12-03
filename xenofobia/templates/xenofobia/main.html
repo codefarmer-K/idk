@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>W3.CSS Template</title>
+    <title>Main Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -27,13 +27,6 @@
     {% load static %}
 
     <!-- 顶部导航 -->
-    {% if user_name %}
-        <div style="text-align: right;">
-            <span>Bienvenido, {{ user_name }}!</span>
-            <a href="{% url 'salir' %}">Salir sesión</a>
-        </div>
-    {% endif %}
-
     <div style="text-align: right; margin: 10px;">
         <a href="{% url 'admin:index' %}" style="color: purple; font-weight: bold; text-decoration: none; margin-right: 15px;">
             Administrador
@@ -43,35 +36,28 @@
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-cyan w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-        <div class="w3-container">
-            <h3 class="w3-padding-16 w3-yellow"><b>The Tax Evader Project</b></h3>
-        </div>
+        {% if user_name %}
+            <div style="text-align: center;" class="w3-container">
+              <p class="w3-padding-16 w3-purple">{{ user_name }} <br></p>
+            </div>
+        {% endif %}
         <div class="w3-bar-block">
-            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-            <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Introduction</a>
-            <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Our Plan</a>
-            <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Designers</a>
-            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-            <img src="{% static 'img/POROTOS_NEGROS.jpg' %}" style="width:50%" onclick="onClick(this)">
+            <a href="#Home" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Casa</a>
+            <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Introducción</a>
+            <a href="#about_us" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Sobre Nosotros</a>
+            <a href="#admins" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Administradores</a>
+            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cuéntanos tu historia!</a>
+            <a href="{% url 'salir' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cerrar Sesión</a>
         </div>
     </nav>
-
-    <!-- Top menu on small screens -->
-    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-        <span>Company Name</span>
-    </header>
-
-    <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
         <!-- Header -->
-        <div class="w3-container" style="margin-top:80px" id="showcase">
-            <h1 class="w3-jumbo"><b>Interior Design</b></h1>
-            <h1 class="w3-xxxlarge w3-text-red"><b>Showcase.</b></h1>
+        <div class="w3-container" style="margin-top:80px" id="Home">
+            <h1 class="w3-jumbo"><b>The Tax Evader Project</b></h1>
+            <h1 class="w3-xxxlarge w3-text-red"><b>Videos y Fotos</b></h1>
             <hr style="width:50px;border:5px solid rgb(53, 224, 239)" class="w3-round">
         </div>
         
@@ -158,15 +144,15 @@
         
 
         <!-- About Us -->
-  <div class="w3-container" id="services" style="margin-top:75px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Who are we?</b></h1>
+  <div class="w3-container" id="about_us" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>¿Quienes Somos?</b></h1>
     <hr style="width:50px;border:5px solid rgb(255, 0, 200)" class="w3-round">
     <p>rellenar</p>
     <p>rellenar</p>
   </div>
   
   <!-- Designers -->
-  <div class="w3-container" id="designers" style="margin-top:75px">
+  <div class="w3-container" id="admins" style="margin-top:75px">
     <h1 class="w3-xxxlarge w3-text-red"><b>Team Members </b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
     <p>The best team in the world.</p>
@@ -209,12 +195,28 @@
     </div>
   </div>
 
-  
-  <a href="{% url 'contar' %}" class="btn btn-primary">Contar</a>
+  <div class="w3-container" id="contact" style="margin-top:75px">
+    <!--Inicio-->
+    <h1 class="w3-xxxlarge w3-text-red"><b>Cuéntanos tu Historia!</b></h1>
+    <hr style="width:50px;border:5px solid rgb(53, 186, 243)" class="w3-round">
+    <div class="w3-animate-opacity">
+        <div class="w3-light-grey">
+            <div class="w3-container">
+                <p>Queremos darle visibilidad a las vivencias de aquellos que
+                    han sufrido, o siguen sufriendo, algún tipo de xenofobia. 
+                Mándanos un mensaje y... cuéntanos tu historia.</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'contar' %}" class="w3-button w3-blue"> Contar </a>
+    
+    <!--Fin-->
+  </div>
 
 
         <!-- Footer -->
-        <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px">
+        <div class="w3-container w3-padding-32" style="padding-left:150px">
             <p class="w3-right"> <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p>
         </div>
     </div>

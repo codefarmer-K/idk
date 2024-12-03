@@ -103,9 +103,9 @@ def inicial_view(request):
                
                 return redirect('main')  # 登录成功后跳转到 main 页面
             else:
-                messages.error(request, "clave invalido")
+                messages.error(request, "Clave inválida")
         except CustomUser.DoesNotExist:
-            messages.error(request, "usuario no existe, por favor registrate")
+            messages.error(request, "El usuario no existe, por favor registrate")
 
     return render(request, 'xenofobia/inicial.html')
 
