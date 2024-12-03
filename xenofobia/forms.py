@@ -7,7 +7,7 @@ from xenofobia.models import UserMessage # 替换为你的模型路径
 class UserMessageForm(forms.ModelForm):
     class Meta:
         model = UserMessage
-        fields = ['name', 'email', 'message']# 
+        fields = ['message']# 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length=30, required=True)
