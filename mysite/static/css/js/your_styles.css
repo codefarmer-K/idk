@@ -6,6 +6,7 @@ body {
 .tab-container {
     width: 80%;
     margin: 0 auto;
+    border-radius: 25px;
 }
 
 .tabs {
@@ -13,6 +14,7 @@ body {
     justify-content: space-around;
     margin-bottom: 20px;
     cursor: pointer;
+    border-radius: 25px;
 }
 
 .tab-button {
@@ -21,21 +23,26 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s;
+    border-radius: 25px;
 }
 
 .tab-button:hover, .tab-button.active {
     background-color: #ddd;
+    border-radius: 25px;
 }
 
 .tab-content {
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    border-radius: 25px;
 }
 
 .tab-panel {
     display: none;
+    border-radius: 25px;
 }
 
 .tab-panel.active {
+    border-radius: 25px;
     display: block;
 }
