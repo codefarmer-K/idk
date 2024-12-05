@@ -3,6 +3,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from xenofobia.models import UserMessage # 替换为你的模型路径
+from django import forms
+from .models import Post, Comment
+
 
 class UserMessageForm(forms.ModelForm):
     class Meta:
@@ -16,3 +19,14 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['content']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
