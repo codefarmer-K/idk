@@ -1,0 +1,13 @@
+# created by virtualenv automatically
+*# Python 文件忽略规则
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# 虚拟环境
+venv/
+
+# IDE 文件
+.vscode/
+.idea/
+
