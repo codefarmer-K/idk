@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Main Page</title>
     <meta charset="UTF-8">
@@ -7,47 +8,97 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <style>
-        body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-        body {font-size:16px;}
-        .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-        .w3-half img:hover{opacity:1}
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Poppins", sans-serif
+        }
+
+        body {
+            font-size: 16px;
+        }
+
+        .w3-half img {
+            margin-bottom: -6px;
+            margin-top: 16px;
+            opacity: 0.8;
+            cursor: pointer
+        }
+
+        .w3-half img:hover {
+            opacity: 1
+        }
 
         .videos {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .video-item {
             margin: 20px 0;
             text-align: center;
         }
     </style>
 </head>
+
 <body>
     {% load static %}
 
     <!-- 顶部导航 -->
     <div style="text-align: right; margin: 10px;">
-        <a href="{% url 'admin:index' %}" style="color: purple; font-weight: bold; text-decoration: none; margin-right: 15px;">
+        <a href="{% url 'admin:index' %}"
+            style="color: purple; font-weight: bold; text-decoration: none; margin-right: 15px;">
             Administrador
         </a>
     </div>
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-cyan w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <nav class="w3-sidebar w3-cyan w3-collapse w3-top w3-large w3-padding"
+        style="z-index:3;width:280px;font-weight:bold;" id="mySidebar"><br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
+            style="width:100%;font-size:22px">Close Menu</a>
         {% if user_name %}
-            <div style="text-align: center;" class="w3-container">
-              <p class="w3-padding-16 w3-purple">{{ user_name }} <br></p>
+        <div style="text-align: center;" class="w3-container">
+            <p class="w3-padding-16 w3-purple">{{ user_name }}
+            <div style="text-align: center;">
+                <img id="random-image" src="" alt="foto de perfil jejeje"
+                    style="width: 60px; height: 60px; border-radius: 100%; border: 1px solid black"
+                    onclick="onClick(this)">
+
+                <script>
+                    // Lista de imágenes (especifica los nombres de las imágenes en la carpeta 'random_pp')
+                    const images = [
+                        "bee.png",
+                        "cat.png",
+                        "rabbit.png",
+                        "deer.png",
+                        "eagle.png" // Agrega todas las imágenes que tienes en la carpeta 'random_pp'
+                    ];
+
+                    // Selecciona una imagen aleatoria
+                    const randomImage = images[Math.floor(Math.random() * images.length)];
+
+                    // Establece la ruta completa de la imagen seleccionada
+                    const imagePath = "/static/img/random_pp/" + randomImage;
+
+                    // Asigna la imagen aleatoria al atributo src del elemento img
+                    document.getElementById("random-image").src = imagePath;
+                </script>
             </div>
+        </div>
         {% endif %}
         <div class="w3-bar-block">
             <a href="#Home" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Casa</a>
-            <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Introducción</a>
-            <a href="#about_us" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Sobre Nosotros</a>
+            <a href="#about_us" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Introducción</a>
             <a href="#admins" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Administradores</a>
-            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cuéntanos tu historia!</a>
-            <a href="{% url 'salir' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cerrar Sesión</a>
+            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cuéntanos tu
+                historia!</a>
+            <a href="{% url 'salir' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cerrar
+                Sesión</a>
         </div>
     </nav>
 
@@ -60,15 +111,17 @@
             <h1 class="w3-xxxlarge w3-text-red"><b>Videos y Fotos</b></h1>
             <hr style="width:50px;border:5px solid rgb(53, 224, 239)" class="w3-round">
         </div>
-        
+
         <!-- Photo grid (modal) -->
         <div class="w3-row-padding">
             <div class="w3-half">
-                <img src="{% static 'img/POROTOS_NEGROS.jpg' %}" style="width:100%" onclick="onClick(this)" alt="sen(x+90) = cos(x)">
+                <img src="{% static 'img/POROTOS_NEGROS.jpg' %}" style="width:100%" onclick="onClick(this)"
+                    alt="sen(x+90) = cos(x)">
             </div>
 
             <div class="w3-half">
-                <img src="{% static 'img/cartel_negro.jfif' %}" style="width:86%" onclick="onClick(this)" alt="Windows for the atrium">
+                <img src="{% static 'img/cartel_negro.jfif' %}" style="width:86%" onclick="onClick(this)"
+                    alt="Windows for the atrium">
             </div>
         </div>
 
@@ -90,7 +143,7 @@
             <video controls class="video-player">
                 <source src="{{ video.video_file.url }}" type="video/mp4">
             </video>
-            
+
             <button class="like-btn" data-video-id="{{ video.id }}">
                 {% if video.liked_by_user %}
                 👍 已点赞
@@ -101,123 +154,146 @@
             <span>总点赞数: {{ video.likes_count }}</span>
         </div>
         {% endfor %}
-        
+
         <style>
             .video-player {
-                max-width: 600px; /* 限制视频最大宽度 */
-                max-height: 400px; /* 限制视频最大高度 */
-                width: 100%; /* 视频宽度自适应父容器 */
-                height: auto; /* 高度根据宽度比例调整 */
+                max-width: 600px;
+                /* 限制视频最大宽度 */
+                max-height: 400px;
+                /* 限制视频最大高度 */
+                width: 100%;
+                /* 视频宽度自适应父容器 */
+                height: auto;
+                /* 高度根据宽度比例调整 */
             }
+
             .video {
-                margin-bottom: 20px; /* 每个视频区域的下间距 */
+                margin-bottom: 20px;
+                /* 每个视频区域的下间距 */
             }
         </style>
-        
+
         <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('.like-btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const videoId = button.dataset.videoId;
-                    const action = button.textContent.includes('已点赞') ? 'unlike' : 'like';
-        
-                    fetch('/main/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'
-                        },
-                        body: JSON.stringify({ video_id: videoId, action: action })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.likes_count !== undefined) {
-                            button.textContent = action === 'like' ? '👍 已点赞' : '👍 点赞';
-                            button.nextElementSibling.textContent = `总点赞数: ${data.likes_count}`;
-                        }
+            document.addEventListener('DOMContentLoaded', () => {
+                const buttons = document.querySelectorAll('.like-btn');
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const videoId = button.dataset.videoId;
+                        const action = button.textContent.includes('已点赞') ? 'unlike' : 'like';
+
+                        fetch('/main/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({ video_id: videoId, action: action })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.likes_count !== undefined) {
+                                    button.textContent = action === 'like' ? '👍 已点赞' : '👍 点赞';
+                                    button.nextElementSibling.textContent = `总点赞数: ${data.likes_count}`;
+                                }
+                            });
                     });
                 });
             });
-        });
         </script>
-        
+
 
         <!-- About Us -->
-  <div class="w3-container" id="about_us" style="margin-top:75px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>¿Quienes Somos?</b></h1>
-    <hr style="width:50px;border:5px solid rgb(255, 0, 200)" class="w3-round">
-    <p>rellenar</p>
-    <p>rellenar</p>
-  </div>
-  
-  <!-- Designers -->
-  <div class="w3-container" id="admins" style="margin-top:75px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Team Members </b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
-    <p>The best team in the world.</p>
-    <p>rellenar
-    </p>
-    <p><b>xd</b>:</p>
-  </div>
+        <div class="w3-container" id="about_us" style="margin-top:75px">
+            <h1 class="w3-xxxlarge w3-text-red"><b>Introducción</b></h1>
+            <hr style="width:50px;border:5px solid rgb(255, 0, 200)" class="w3-round">
+            <h2>¿Quiénes somos?</h2>
+            <p>Somos un grupo de estudiantes que propone una solución para poder afrontar una de las problemáticas
+            sociales más importantes actualmente: La xenofobia.</p>
+            <h2>¿Qué es la xenofobia?</h2>
+            <p>La xenofobia es una actitud hostil hacia personas de culturas, etnias o nacionalidades diferentes,
+                que a menudo conduce a desigualdades sociales y conflictos culturales.</p>
+            <h2>¿En qué consiste nuestra solución?</h2>
+            <p>Nuestra página consiste en un "blog" de videos en el cual se visibilice la xenofobia como temática latente
+                en las sociedades actuales.
+            </p>
+            <h2>¿Cómo puedes participar?</h2>
+            <p>En la última sección de esta página, hay un botón que te redirecciona a otra página, en la cual
+                puedes contarnos: Cómo la xenofobia te ha afectado a ti o a tus cercanos, cómo es la situación en tu país o localidad, una sugerencia
+                , un mensaje, lo que necesites exponer. Estamos para ayudarte!!
+            </p>
+        </div>
 
-  <!-- The Team -->
-  <div class="w3-row-padding w3-grayscale">
-    <div class="w3-col m4 w3-margin-bottom">
-      <div class="w3-light-grey">
-        <img src="/w3images/team2.jpg" alt="John" style="width:100%">
-        <div class="w3-container">
-          <h3>John Doe</h3>
-          <p class="w3-opacity">CEO & Founder</p>
-          <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+        <!-- Designers -->
+        <div class="w3-container" id="admins" style="margin-top:75px">
+            <h1 class="w3-xxxlarge w3-text-red"><b>Team Members </b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <p>The best team in the world.</p>
+            <p>rellenar
+            </p>
+            <p><b>xd</b>:</p>
         </div>
-      </div>
-    </div>
-    <div class="w3-col m4 w3-margin-bottom">
-      <div class="w3-light-grey">
-        <img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
-        <div class="w3-container">
-          <h3>Jane Doe</h3>
-          <p class="w3-opacity">Designer</p>
-          <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-        </div>
-      </div>
-    </div>
-    <div class="w3-col m4 w3-margin-bottom">
-      <div class="w3-light-grey">
-        <img src="/w3images/team3.jpg" alt="Mike" style="width:100%">
-        <div class="w3-container">
-          <h3>Mike Ross</h3>
-          <p class="w3-opacity">Architect</p>
-          <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="w3-container" id="contact" style="margin-top:75px">
-    <!--Inicio-->
-    <h1 class="w3-xxxlarge w3-text-red"><b>Cuéntanos tu Historia!</b></h1>
-    <hr style="width:50px;border:5px solid rgb(53, 186, 243)" class="w3-round">
-    <div class="w3-animate-opacity">
-        <div class="w3-light-grey">
-            <div class="w3-container">
-                <p>Queremos darle visibilidad a las vivencias de aquellos que
-                    han sufrido, o siguen sufriendo, algún tipo de xenofobia. 
-                Mándanos un mensaje y... cuéntanos tu historia.</p>
+        <!-- The Team -->
+        <div class="w3-row-padding w3-grayscale">
+            <div class="w3-col m4 w3-margin-bottom">
+                <div class="w3-light-grey">
+                    <img src="/w3images/team2.jpg" alt="John" style="width:100%">
+                    <div class="w3-container">
+                        <h3>John Doe</h3>
+                        <p class="w3-opacity">CEO & Founder</p>
+                        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque
+                            elementum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-col m4 w3-margin-bottom">
+                <div class="w3-light-grey">
+                    <img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
+                    <div class="w3-container">
+                        <h3>Jane Doe</h3>
+                        <p class="w3-opacity">Designer</p>
+                        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque
+                            elementum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-col m4 w3-margin-bottom">
+                <div class="w3-light-grey">
+                    <img src="/w3images/team3.jpg" alt="Mike" style="width:100%">
+                    <div class="w3-container">
+                        <h3>Mike Ross</h3>
+                        <p class="w3-opacity">Architect</p>
+                        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque
+                            elementum.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <a href="{% url 'contar' %}" class="w3-button w3-blue"> Contar </a>
-    
-    <!--Fin-->
-  </div>
+        <div class="w3-container" id="contact" style="margin-top:75px">
+            <!--Inicio-->
+            <h1 class="w3-xxxlarge w3-text-red"><b>Cuéntanos tu Historia!</b></h1>
+            <hr style="width:50px;border:5px solid rgb(53, 186, 243)" class="w3-round">
+            <div class="w3-animate-opacity">
+                <div class="w3-light-grey">
+                    <div class="w3-container">
+                        <p>Queremos darle visibilidad a las vivencias de aquellos que
+                            han sufrido, o siguen sufriendo, algún tipo de xenofobia.
+                            Mándanos un mensaje y... cuéntanos tu historia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{% url 'contar' %}" class="w3-button w3-blue"> Contar </a>
+
+            <!--Fin-->
+        </div>
 
 
         <!-- Footer -->
         <div class="w3-container w3-padding-32" style="padding-left:150px">
-            <p class="w3-right"> <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p>
+            <p class="w3-right"> <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
+                    class="w3-hover-opacity"></a></p>
         </div>
     </div>
 
@@ -242,4 +318,5 @@
         }
     </script>
 </body>
+
 </html>
