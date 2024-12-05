@@ -1,9 +1,11 @@
 # Create my models .
 from django.db import models
 from django.utils import timezone
-import pytz
 from django.utils import timezone
-from datetime import datetime
+from django.contrib.auth import get_user_model
+
+# 获取自定义用户模型
+CustomUser = get_user_model()
 
 
 class UserMessage(models.Model):
@@ -41,3 +43,22 @@ class Like(models.Model):
     class Meta:
         unique_together = ('user', 'video')  # 每个用户对每个视频只能点赞一次
 
+
+
+
+class Post(models.Model):
+    # 发言内容
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # 发言的客户
+    content = models.TextField()  # 发言内容
+
+    def __str__(self):
+        return f"Post by {self.user.username}"
+
+class Comment(models.Model):
+    # 评论内容
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)  # 评论对应的发言
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # 评论的客户
+    content = models.TextField()  # 评论内容
+
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.post.id}"
