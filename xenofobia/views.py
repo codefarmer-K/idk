@@ -1,10 +1,10 @@
- # xenofobia/views.py
+# xenofobia/views.py
 from sqlite3 import IntegrityError
 from django.shortcuts import render, redirect
 from .models import Video, Like
 from .forms import RegistrationForm
 from .forms import UserMessageForm# 替换为你的表单类路径
-from django.contrib.auth import login, logout
+from django.contrib.auth import logout
 from django.contrib import messages
 from .models import CustomUser
 from django.contrib.auth.hashers import make_password,check_password
@@ -12,9 +12,82 @@ from .models import Video
 from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 import json
 from django.db.models import F
+from .models import Comment,Post
+from .models import CustomUser
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import Http404
+
+def delete_comment(request, comment_id):
+    user_name = request.session.get('user_name', None)
+    if not user_name:
+        return redirect('inicial')  # 如果用户未登录，跳转到登录页面
+
+    user = CustomUser.objects.get(name=user_name)
+    comment = Comment.objects.get(id=comment_id)
+
+    # 确保只有评论的作者可以删除评论
+    if comment.user == user:
+        comment.delete()
+
+    return redirect('enviroment')  # 删除后返回论坛页面
+
+
+# 删除帖子视图
+def delete_post(request, post_id):
+    user_name = request.session.get('user_name', None)
+    if not user_name:
+        return redirect('inicial')  # 如果用户未登录，跳转到登录页面
+
+    user = CustomUser.objects.get(name=user_name)
+    post = Post.objects.get(id=post_id)
+
+    # 确保只有帖子作者可以删除帖子
+    if post.user == user:
+        post.delete()
+
+    return redirect('enviroment')  # 删除后返回论坛页面
+
+
+def add_comment(request, post_id):
+    user_name = request.session.get('user_name', None)
+    if not user_name:
+        return redirect('inicial')  # 如果用户未登录，跳转到登录页面
+
+    user = CustomUser.objects.get(name=user_name)
+    post = Post.objects.get(id=post_id)
+
+    if request.method == 'POST':
+        comment_content = request.POST.get('comment_content')
+        if comment_content:
+            Comment.objects.create(post=post, user=user, content=comment_content)
+
+    return redirect('enviroment')  # 提交评论后返回到论坛页面
+
+
+
+def enviroment_view(request):
+    user_name = request.session.get('user_name', None)
+    if not user_name:
+        return redirect('inicial')  # 如果用户未登录，跳转到登录页面
+
+    user = CustomUser.objects.get(name=user_name)
+    posts = Post.objects.all()  # 获取所有帖子
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content:
+            # 保存新的发言
+            Post.objects.create(user=user, content=content)
+
+    return render(request, 'xenofobia/enviroment.html', {
+        'user': user,  # 传递当前登录的用户
+        'posts': posts,  # 传递所有的帖子
+    })
+
+
+
 
 @csrf_exempt  # 用于处理 POST 请求中的 CSRF 问题
 def main_view(request):
@@ -60,6 +133,7 @@ def main_view(request):
 
 def custom_admin_logout(request):
     """自定义 admin logout 逻辑"""
+    
     return redirect('main')  # 替换 'main' 为你的客户 main 页面名称
 
 
@@ -103,9 +177,9 @@ def inicial_view(request):
                
                 return redirect('main')  # 登录成功后跳转到 main 页面
             else:
-                messages.error(request, "Clave inválida")
+                messages.error(request, "clave invalido")
         except CustomUser.DoesNotExist:
-            messages.error(request, "El usuario no existe, por favor registrate")
+            messages.error(request, "usuario no existe, por favor registrate")
 
     return render(request, 'xenofobia/inicial.html')
 
@@ -123,6 +197,8 @@ def contar_view(request):
 # 感谢页面视图
 def thank_you_view(request):
     return render(request, 'xenofobia/thank_you.html')
+
+
 
 
 
